@@ -56,7 +56,7 @@ app.get('/', async (req, res) => {
     let m3u8ToUpdate = await response.text();
     responseToDisplay = m3u8ToUpdate.split("\n").map((url) => {
       if (url.startsWith("http")) {
-        return "http://localhost:2545/?url=" + encodeURIComponent(url);
+        return "http://" + req.headers.host + "/?url=" + encodeURIComponent(url);
       } else {
         return url;
       }
