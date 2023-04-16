@@ -1,5 +1,6 @@
 const express = require('express');
 const request = require('node-fetch');
+const { Headers } = require("node-fetch");
 
 /**
  * 
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     next();
   });
+  
 app.get('/', async (req, res) => {
 /**
  * 
@@ -97,6 +99,6 @@ headers.forEach((value, key) => {
     res.set(headerObject).status(response.status).send(responseToDisplay);
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server started on port http://localhost:${port}`);
 });
