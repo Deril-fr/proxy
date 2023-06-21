@@ -35,7 +35,7 @@ app.get('/', async (req, res) => {
 
   const response = await fetch(oldUrl, req.headers)
 
-  let headers = new Headers(req.headers); 
+  let headers = new Headers(response.headers); 
   // Remove the headers you don't want to use
 
   headers.delete("content-encoding");
