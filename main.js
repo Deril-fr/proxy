@@ -9,6 +9,9 @@ const { Headers } = require("node-fetch");
  * @returns {Promise<Response>} 
  */
 async function fetch(url, headers){ 
+  delete headers.host;
+  delete headers.referer;
+
   let response = request(url, {
     headers: headers,
   });
