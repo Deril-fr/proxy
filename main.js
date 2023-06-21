@@ -1,11 +1,8 @@
 const express = require('express');
 const request = require('node-fetch');
 const { Headers } = require("node-fetch");
-const https = require('https');
 
-const httpsAgent = new https.Agent({
-      rejectUnauthorized: false,
-    });
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 /**
  * Rewrite the fetch function to add the headers you want to use
@@ -26,7 +23,6 @@ async function fetch(url){
         "sec-fetch-dest" : "iframe",
         "TE": "Trailers"
       },
-    agent: httpsAgent
   });
   return response
 }
