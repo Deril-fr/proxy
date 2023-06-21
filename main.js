@@ -17,9 +17,6 @@ async function fetch(url){
         "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
         "Upgrade-Insecure-Requests": "1",
-        "Cache-Control": "max-age=0",
-        "sec-fetch-dest" : "iframe",
-        "TE": "Trailers"
       },
   });
   return response
