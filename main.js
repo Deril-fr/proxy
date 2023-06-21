@@ -8,12 +8,18 @@ const { Headers } = require("node-fetch");
  * @param {string} url 
  * @returns {Promise<Response>} 
  */
-async function fetch(url, headers){ 
-  delete headers.host;
-  delete headers.referer;
-
+async function fetch(url){ 
   let response = request(url, {
-    headers: headers,
+    headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Language": "en-US,en;q=0.9,fr;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Cache-Control": "max-age=0",
+        "TE": "Trailers"
+      }
   });
   return response
 }
@@ -36,7 +42,7 @@ app.get('/', async (req, res) => {
   let oldUrl = decodeURIComponent(searchParams.get("url"));
   if(!oldUrl) return res.status(400).send("No URL provided");
 
-  const response = await fetch(oldUrl, req.headers)
+  const response = await fetch(oldUrl);
 
   let headers = new Headers(response.headers); 
   // Remove the headers you don't want to use
@@ -47,7 +53,7 @@ app.get('/', async (req, res) => {
   let responseToDisplay = "";
 
   // If the response is a m3u8 file, we need to rewrite the urls to use the proxy
-  if (oldUrl.includes(".m3u8")) {
+  if (oldUrl.includes("m3u8")) {
     let m3u8ToUpdate = await response.text();
     responseToDisplay = m3u8ToUpdate.split("\n").map((url) => {
       if (url.startsWith("http")) {
