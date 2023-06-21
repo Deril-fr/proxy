@@ -23,6 +23,7 @@ async function fetch(url){
         "Connection": "keep-alive",
         "Upgrade-Insecure-Requests": "1",
         "Cache-Control": "max-age=0",
+        "sec-fetch-dest" : "iframe",
         "TE": "Trailers"
       },
     agent: httpsAgent
