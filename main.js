@@ -1,6 +1,11 @@
 const express = require('express');
 const request = require('node-fetch');
 const { Headers } = require("node-fetch");
+const https = require('https');
+
+const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+    });
 
 /**
  * Rewrite the fetch function to add the headers you want to use
@@ -19,7 +24,8 @@ async function fetch(url){
         "Upgrade-Insecure-Requests": "1",
         "Cache-Control": "max-age=0",
         "TE": "Trailers"
-      }
+      },
+    agent: httpsAgent
   });
   return response
 }
