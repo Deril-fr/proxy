@@ -43,6 +43,9 @@ app.get('/', async (req, res) => {
   if(!oldUrl) return res.status(400).send("No URL provided");
 
   const response = await fetch(oldUrl);
+  if(!response.ok) return res.status(200).send({
+      error:"Website is unavailable"
+  })
 
   let headers = new Headers(response.headers); 
   // Remove the headers you don't want to use
